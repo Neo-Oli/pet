@@ -1,0 +1,27 @@
+
+happy		 :)
+sad      :(
+dirty    :(.°
+sleepy   ¦o
+hungry   :O 
+sick		 :&
+dead		 x(
+
+
+graphics={}
+graphics[0]={}
+graphics[0]['happy']=":)"
+graphics[0]['sad']=":("
+graphics[0]['dirty']=":(.°"
+graphics[0]['sleepy']="¦o"
+graphics[0]['hungry']=":O"
+graphics[0]['sick']=":&"
+graphics[0]['dead']="x("
+graphics[1]={}
+graphics[1]['happy']=":-)"
+graphics[1]['sad']=":-("
+graphics[1]['dirty']=":-(.°"
+graphics[1]['sleepy']="¦-o"
+graphics[1]['hungry']=":-O"
+graphics[1]['sick']=":-&"
+graphics[1]['dead']="x-("

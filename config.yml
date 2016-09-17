@@ -1,0 +1,44 @@
+lang: en
+timemodifier: 0.1
+growtime: 86400
+sicktime: 86400
+learntime: 3600
+sleeptime: 21600
+foodtime: 60
+playtime: 30
+cleantime: 5
+healtime: 15
+savefile: state
+maxgrow: 1
+
+foodmod: 0.003
+sleepmod: 0.001
+cleanmod: 0.0005
+playmod: 0.007
+learnmod: 0.001 
+
+unhappyat: 25
+foodsick: -50,150,True,True
+sleepsick: -50,150,True,False
+cleansick: -50,150,True,False
+playsick: -50,150,True,True
+
+foodimprove: 25
+cleanimprove: 75
+playimprove: 25
+playimprove: 25
+sleepimprove: 100
+learnimprove: 100
+sleepafterheal: 75
+foodafterheal: 10
+cleanafterheal: 10
+learnafterheal: 50
+playafterheal: 25
+play-dirty: 10
+play-food: 10
+clean-sleep: 10
+food-dirty: 10
+food-sleep: 2
+learn-sleep: 5
+learn-play: 15
+
