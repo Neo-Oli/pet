@@ -5,6 +5,7 @@ debug-help: Nützlich informationen zum debuggen
 timeskip-help: Überspringt die Wartezeit
 error-nostate: Bitte ein neues Tier erstellen mit "new [name]"
 error-noname: Bitte Namen spezifizieren
+error-petexists: Du kannst nur ein Tier haben (und du darfst auf keinen Fall dein jetztiges Tier ermorden)
 born: Ein neues Tier ist gebohren!
 grown: Das Tier ist gewachsen!
 died: Leider ist das Tier gestorben!

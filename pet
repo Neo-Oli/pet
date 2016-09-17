@@ -132,10 +132,11 @@ def testaction(state,time):
 	return state
 
 def sick(state,time):
+	global messageout
 	state["sick"]=True
 	state["sicktime"]=time
 	state["action"]=None
-
+	messageout+=" "+lang["sick-message"]
 	return state
 
 def getstatus(state,time):
@@ -309,7 +310,10 @@ args = parser.parse_args()
 state=load()
 
 if args.action=="new":
-	state=birth(args.name);
+	if not state["name"] or state["dead"]
+		state=birth(args.name);
+	else:
+		print(lang["error-petexists"])
 if not state:
 	print(lang["error-nostate"])
 	sys.exit(1)

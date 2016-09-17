@@ -5,6 +5,7 @@ debug-help: Print debug information
 timeskip-help: Skips the current waiting time
 error-nostate: Please create a new pet with "new [name]"
 error-noname: Please specify a name
+error-petexists: You can't have more than one pet (and you certainly can't kill your current pet)
 born: New pet is born!
 grown: The pet grew!
 died: Sadly, the pet died!
@@ -13,3 +14,4 @@ sick: Sick!
 remainingtime: Remaining time
 notsick: Not Sick!
 busy: Busy!
+sick-message: Oh no, the pet is sick!
