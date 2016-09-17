@@ -1,0 +1,13 @@
+program-description: Spiel mit dem Tier
+action-help: Auszuführende Aktion
+name-help: Name (Zusammen mit der "new" aktion)
+debug-help: Nützlich informationen zum debuggen
+timeskip-help: Überspringt die Wartezeit
+error-nostate: Bitte ein neues Tier erstellen mit "new [name]"
+error-noname: Bitte Namen spezifizieren
+born: Ein neues Tier ist gebohren!
+grown: Das Tier ist gewachsen!
+died: Leider ist das Tier gestorben!
+dead: Tot!
+sick: Krank!
+sick-message: Oh nein, das Tier ist krank!
