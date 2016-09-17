@@ -15,3 +15,4 @@ remainingtime: Remaining time
 notsick: Not Sick!
 busy: Busy!
 sick-message: Oh no, the pet is sick!
+nodebug: You're not allowed to run debug commands

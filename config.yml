@@ -1,4 +1,5 @@
 lang: de
+debug: False
 timemodifier: 0.1
 growtime: 86400
 sicktime: 86400

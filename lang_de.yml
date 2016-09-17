@@ -11,4 +11,8 @@ grown: Das Tier ist gewachsen!
 died: Leider ist das Tier gestorben!
 dead: Tot!
 sick: Krank!
+remainingtime: Zeit verbleibend
+notsick: Nicht Krank!
+busy: Beschäftigt!
 sick-message: Oh nein, das Tier ist krank!
+nodebug: Du darfst keine Debug Befehle ausführen

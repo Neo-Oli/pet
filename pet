@@ -307,13 +307,20 @@ parser.add_argument('name', help=lang["name-help"],nargs='?',default="")
 parser.add_argument('--debug', action='store_true', help=lang["debug-help"])
 parser.add_argument('--timeskip', action='store_true', help=lang["timeskip-help"])
 args = parser.parse_args()
+
+if not config["debug"]:
+	if args.timeskip or \
+			args.debug:
+		sys.exit(lang["nodebug"])
+
 state=load()
 
 if args.action=="new":
-	if not state["name"] or state["dead"]
+	if not state["name"] or state["dead"]:
 		state=birth(args.name);
 	else:
 		print(lang["error-petexists"])
+		sys.exit(1)
 if not state:
 	print(lang["error-nostate"])
 	sys.exit(1)
