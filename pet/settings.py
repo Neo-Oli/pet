@@ -26,8 +26,13 @@ class settings(object):
 		return config
 
 	def loadlang(self):
-		with open ("lang_"+self.config["lang"]+".yml", "r") as openfile:
+		with open ("pet/lang_"+self.config["lang"]+".yml", "r") as openfile:
 			langdata=openfile.read()
 		return yaml.load(langdata)
+
+
+	def text(self,key):
+
+		return self.lang[key]
 
 	

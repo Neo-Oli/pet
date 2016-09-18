@@ -22,12 +22,12 @@ class petstate(object):
 # Generates a new state, give it a name
 	def birth(self,name):
 		if not name:
-			print(self.settings.lang["error-noname"])
+			print(self.text("error-noname"))
 			import sys
 			sys.exit(1)
 		self.state={}
 		self.state["name"]=name
-		self.message.append(self.settings.lang["born"])
+		self.message.append(self.text("born"))
 
 	def initialize(self,key,value):
 		if not key in self.state:
@@ -44,10 +44,10 @@ class petstate(object):
 				self.birth(self.settings.name)
 				self.getstatus(time)
 			else:
-				print(self.settings.lang["error-petexists"])
+				print(self.text("error-petexists"))
 				sys.exit(1)
 		elif not self.state:
-				print(self.settings.lang["error-nostate"])
+				print(self.text("error-nostate"))
 				sys.exit(1)
 		else:
 			if action in ["food","play","clean","learn","sleep","heal"]:
@@ -68,14 +68,14 @@ class petstate(object):
 			elif action=="status":
 				self.getstatus(time)
 			elif action:
-				print(self.settings.lang["error-action"])
+				print(self.text("error-action"))
 				sys.exit(1)
 			else:
 				self.do("status")
 
 	def testaction(self,time, forcestop=False):
 		if self.state["action"]=="heal" and forcestop:
-			self.error.append(self.settings.lang["error_forcestop"])
+			self.error.append(self.text("error_forcestop"))
 		timediff=time - self.state["actiontime"]
 		timereq=self.settings.config[self.state["action"]+"time"] * self.settings.config["timemodifier"] 
 		percent=timediff/timereq
@@ -97,7 +97,7 @@ class petstate(object):
 		state["sick"]=True
 		state["sicktime"]=time
 		state["action"]=None
-		self.message.append(self.settings.lang["sick-message"])
+		self.message.append(self.text("sick-message"))
 		return state
 
 	def getstatus(self,time,forcestop=False):
@@ -137,10 +137,10 @@ class petstate(object):
 
 			if self.getmood()=="happy" and self.state["time"]-self.state["growtime"]>self.settings.config["growtime"]*self.settings.config["timemodifier"] and self.state["grow"]<self.settings.config["maxgrow"] or self.settings.grow:
 				self.state["grow"]+=1
-				self.message.append(self.settings.lang["grown"])
+				self.message.append(self.text("grown"))
 		elif time-self.state["sicktime"]>self.settings.config["sicktime"]*self.settings.config["timemodifier"]:
 			if not self.state["dead"]:
-				self.error.append(settings.lang["died"])
+				self.error.append(settings.text("died"))
 			self.state["dead"]=True
 
 
@@ -157,13 +157,13 @@ class petstate(object):
 
 	def wait(self,action,time):
 		if action=="heal" and not self.state["sick"]:
-			self.error.append(settings.lang["notsick"])
+			self.error.append(settings.text("notsick"))
 		elif not self.state["action"]:
 			if not self.state["dead"] and (not self.state["sick"] or action=="heal"):
 				self.state["action"]=action
 				self.state["actiontime"]=time
 		else:
-			self.error.append(self.settings.lang["busy"])
+			self.error.append(self.text("busy"))
 
 	def getmood(self):
 		if self.state["dead"]:
@@ -208,3 +208,9 @@ class petstate(object):
 		self.error=[]
 		self.savefile=savefile
 		self.settings=settings
+	
+	def text(self, key):
+		text=self.settings.text(key)
+		if "name" in self.state:
+			text=text.replace("%n", self.state["name"])
+		return text

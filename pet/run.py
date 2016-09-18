@@ -18,7 +18,7 @@ def main():
 	if not settings.config["debug"]:
 		if args.timeskip or \
 				args.grow:
-			sys.exit(settings.lang["nodebug"])
+			sys.exit(settings.text("nodebug"))
 		settings.grow=False
 		settings.timeskip=False
 	else:
