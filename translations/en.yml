@@ -11,6 +11,7 @@ sick: "Sick!"
 remainingtime: "Remaining time"
 notsick: "Not Sick!"
 busy: "Busy!"
+age: "%n is %t days old"
 sick-message: "Oh no, %n is sick!"
 nodebug: "You're not allowed to run debug commands"
 foodalt:
@@ -39,4 +40,5 @@ cancelalt:
   - poke
 healalt:
   - medicine
-
+agealt:
+  - old

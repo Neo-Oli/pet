@@ -11,6 +11,7 @@ sick: "Krank!"
 remainingtime: "Zeit verbleibend"
 notsick: "Nicht Krank!"
 busy: "Beschäftigt!"
+age: "%n ist %t Tage alt"
 sick-message: "Oh nein, %n ist krank!"
 nodebug: "Du darfst keine Debug Befehle ausführen"
 foodalt:
@@ -67,5 +68,6 @@ healalt:
   - heilen
   - verarzten
   - genesen
-
-
+agealt:
+  - old
+  - alter

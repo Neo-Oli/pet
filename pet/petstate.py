@@ -1,5 +1,5 @@
 # coding=utf-8
-import datetime,json,os
+import datetime,json,os,math
 class petstate(object):
 
 
@@ -19,17 +19,23 @@ class petstate(object):
 
 
 # Generates a new state, give it a name
-	def birth(self,name):
+	def birth(self,name,time):
 		if not name:
 			self.error.append(self.text("error-noname"))
 		else:
 			self.state={}
 			self.state["name"]=name
+			self.state["timeofbirth"]=time
 			self.message.append(self.text("born"))
 
 	def initialize(self,key,value):
 		if not key in self.state:
 			self.state[key]=value
+	
+	def getage(self,time):
+		age=time-self.state["timeofbirth"]
+		ageindays=math.floor(round(age)/60/60/24)
+		self.message.append(self.text("age").replace("%t", str(ageindays)))
 
 	def do(self,action="status"):
 		# fix library calls sending empty strings
@@ -45,7 +51,7 @@ class petstate(object):
 				else:
 					dead=False
 				if "name" not in self.state or dead:
-					self.birth(self.settings.name)
+					self.birth(self.settings.name,time)
 					self.do()
 				else:
 					self.error.append(self.text("error-petexists"))
@@ -61,9 +67,12 @@ class petstate(object):
 					self.getstatus(time,True)
 				elif action=="status":
 					self.getstatus(time)
+				elif action=="age":
+					self.getage(time)
+					self.do()
 				else:
 
-					for key in ["food","play","sleep","heal","learn","cancel","clean"]:
+					for key in ["food","play","sleep","heal","learn","cancel","clean","age"]:
 						if action in self.settings.lang[key+"alt"]:
 							self.do(key)
 							done=True

@@ -26,7 +26,7 @@ def main(action="",name="",configfile="default.config.yml",statefile="default.st
 	settings=settings.settings(configfile)
 	if not settings.config["debug"]:
 		if timeskip or grow:
-			return settings.text("nodebug")
+			return settings.text("nodebug"),True
 		settings.grow=False
 		settings.timeskip=False
 	else:
