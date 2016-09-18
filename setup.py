@@ -31,7 +31,9 @@ setup(
     long_description=(
         "Virtual pet simulator"
     ),
-    packages=[str('pet')],
+    packages=['pet'],
+		data_files=[('translations', ['translations/en.yml','translations/de.yml']),
+							 ('config',['config/default.yml'])],
     license='',
     platforms='Linux x86, x86-64',
     install_requires=requires,
