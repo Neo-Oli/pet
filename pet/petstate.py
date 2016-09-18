@@ -142,7 +142,7 @@ class petstate(object):
 				self.state["grow"]+=1
 				self.message.append(self.text("grown"))
 				self.state["growtime"]=time
-			elif time-self.state["sicktime"]>self.settings.config["sicktime"]*self.settings.config["timemodifier"]:
+			elif time-self.state["sicktime"]>self.settings.config["sicktime"]*self.settings.config["timemodifier"] and self.state["sick"]:
 				if not self.state["dead"]:
 					self.message.append(self.text("died"))
 				self.state["dead"]=True
