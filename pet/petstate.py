@@ -32,6 +32,8 @@ class petstate(object):
 			self.state[key]=value
 
 	def do(self,action=""):
+		action=action.lower()
+		done=False
 		if not self.error:
 			time=float(datetime.datetime.now().strftime("%s.%f"))
 			if action=="new":
@@ -51,23 +53,21 @@ class petstate(object):
 					self.getstatus(time)
 					self.wait(action,time)
 					self.getstatus(time)
-				elif action in ["feed","eat","Fd"]:
-					self.do("food")
-				elif action=="fun":
-					self.do("play")
-				elif action in ["teach","lrn"]:
-					self.do("learn")
-				elif action in ["cln","wash"]:
-					self.do("clean")
-				elif action in ["cancel", "stop", "wake","interrupt"]:
+				elif action == "cancel":
 					# Force stop action
 					self.getstatus(time,True)
 				elif action=="status":
 					self.getstatus(time)
-				elif action:
-					self.error.append(self.text("error-action"))
 				else:
-					self.do("status")
+
+					for key in ["food","play","sleep","heal","learn","cancel","clean"]:
+						if action in self.settings.lang[key+"alt"]:
+							self.do(key)
+							done=True
+					if action and not done:
+						self.error.append(self.text("error-action"))
+					else:
+						self.do("status")
 
 	def testaction(self,time, forcestop=False):
 		if self.state["action"]=="heal" and forcestop:

@@ -13,3 +13,59 @@ notsick: "Nicht Krank!"
 busy: "Beschäftigt!"
 sick-message: "Oh nein, %n ist krank!"
 nodebug: "Du darfst keine Debug Befehle ausführen"
+foodalt:
+  - feed
+  - eat
+  - fd
+  - füttere
+  - füttern
+  - futter
+  - essen
+  - iss
+  - esse
+  - kaffi
+  - kafi
+sleepalt:
+  - bed
+  - zzz
+  - zz
+  - bett
+  - schlaf
+  - schlafe
+  - schlafen
+cleanalt:
+  - wash
+  - bathe
+  - bath
+  - cln
+  - waschen
+  - bade
+  - badewanne
+  - wasche
+playalt:
+  - fun
+  - spass
+  - spielen
+  - spiele
+learnalt:
+  - teach
+  - study
+  - lerne
+  - lern
+  - lrn
+cancelalt:
+  - stop
+  - interrupt
+  - wake
+  - poke
+  - gingg
+  - aufwechen
+  - unterbrechen
+
+healalt:
+  - medicine
+  - heilen
+  - verarzten
+  - genesen
+
+
