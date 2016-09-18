@@ -1,11 +1,8 @@
-program-description: Play with the pet
-action-help: Action to do
-name-help: Name (used together with new action)
-debug-help: Print debug information
-timeskip-help: Skips the current waiting time
 error-nostate: Please create a new pet with "new [name]"
 error-noname: Please specify a name
+error-action: Action doesn't exist
 error-petexists: You can't have more than one pet (and you certainly can't kill your current pet)
+error-forcestop: This action can't be interrupted!
 born: New pet is born!
 grown: The pet grew!
 died: Sadly, the pet died!

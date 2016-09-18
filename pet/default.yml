@@ -1,6 +1,6 @@
-lang: de
-debug: False
-timemodifier: 0.1
+lang: en
+debug: false
+timemodifier: 1
 growtime: 86400
 sicktime: 86400
 learntime: 3600
@@ -9,7 +9,6 @@ foodtime: 60
 playtime: 30
 cleantime: 5
 healtime: 15
-savefile: state
 maxgrow: 1
 
 foodmod: 0.003
@@ -22,7 +21,7 @@ unhappyat: 25
 foodsick: -50,150,True,True
 sleepsick: -50,150,True,False
 cleansick: -50,150,True,False
-playsick: -50,150,True,True
+playsick: -50,150,True,False
 
 foodimprove: 25
 cleanimprove: 75
