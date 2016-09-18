@@ -1,0 +1,1 @@
+Virtual Pet symulator written in python. Actions are performed with arguments. Programm will only run for one action, but will save it's state. .
