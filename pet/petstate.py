@@ -44,7 +44,7 @@ class petstate(object):
 					dead=self.state["dead"]
 				else:
 					dead=False
-				if "name" not in self.state and not dead:
+				if "name" not in self.state or dead:
 					self.birth(self.settings.name)
 					self.do()
 				else:
@@ -142,12 +142,10 @@ class petstate(object):
 				self.state["grow"]+=1
 				self.message.append(self.text("grown"))
 				self.state["growtime"]=time
-		elif time-self.state["sicktime"]>self.settings.config["sicktime"]*self.settings.config["timemodifier"]:
-			if not self.state["dead"]:
-				self.message.append(settings.text("died"))
-			self.state["dead"]=True
-
-
+			elif time-self.state["sicktime"]>self.settings.config["sicktime"]*self.settings.config["timemodifier"]:
+				if not self.state["dead"]:
+					self.message.append(self.text("died"))
+				self.state["dead"]=True
 
 
 
@@ -161,7 +159,7 @@ class petstate(object):
 
 	def wait(self,action,time):
 		if action=="heal" and not self.state["sick"]:
-			self.message.append(settings.text("notsick"))
+			self.message.append(self.text("notsick"))
 		elif not self.state["action"]:
 			if not self.state["dead"] and (not self.state["sick"] or action=="heal"):
 				self.state["action"]=action
