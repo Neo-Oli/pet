@@ -31,7 +31,10 @@ class petstate(object):
 		if not key in self.state:
 			self.state[key]=value
 
-	def do(self,action=""):
+	def do(self,action="status"):
+		# fix library calls sending empty strings
+		if not action:
+			action="status"
 		action=action.lower()
 		done=False
 		if not self.error:
@@ -64,10 +67,8 @@ class petstate(object):
 						if action in self.settings.lang[key+"alt"]:
 							self.do(key)
 							done=True
-					if action and not done:
+					if not done:
 						self.error.append(self.text("error-action"))
-					else:
-						self.do("status")
 
 	def testaction(self,time, forcestop=False):
 		if self.state["action"]=="heal" and forcestop:
