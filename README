@@ -1,1 +1,3 @@
-Virtual Pet symulator written in python. Actions are performed with arguments. Programm will only run for one action, but will save it's state. .
+Virtual Pet symulator written in python. Actions are performed with arguments. Programm will only run for one action, but will save it's state.
+
+After initializing once, you can edit the config file under ~/.config/pet/
