@@ -32,7 +32,7 @@ setup(
     long_description=(
         "Virtual pet simulator"
     ),
-    packages=['pet'],
+    packages=[str('pet')],
 		data_files=[('translations', ['translations/en.yml','translations/de.yml']),
 							 ('config',['config/default.yml'])],
     license='',
