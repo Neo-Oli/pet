@@ -38,5 +38,5 @@ setup(
     license='',
     platforms='Linux x86, x86-64',
     install_requires=requires,
-    entry_points={'console_scripts': ['pet=pet.run:main']},
+		entry_points={'console_scripts': ['pet=pet.pet_run:main']},
 )
