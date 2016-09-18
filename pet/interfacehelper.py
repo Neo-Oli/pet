@@ -1,3 +1,4 @@
+# coding=utf-8
 def displayvalue(value):
 	value=minmax(value)
 	value=value/25

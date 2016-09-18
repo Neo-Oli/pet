@@ -1,3 +1,4 @@
+# coding=utf-8
 from pet import interfacehelper
 import datetime,sys
 class interface():

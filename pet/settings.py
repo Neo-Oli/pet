@@ -1,3 +1,4 @@
+# coding=utf-8
 import yaml
 import os,sys
 from pkg_resources import resource_stream, Requirement

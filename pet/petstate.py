@@ -1,3 +1,4 @@
+# coding=utf-8
 import datetime,json,sys
 class petstate(object):
 
