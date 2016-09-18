@@ -74,10 +74,15 @@ class petstate(object):
 			self.message.append(self.text("error_forcestop"))
 		timediff=time - self.state["actiontime"]
 		timereq=self.settings.config[self.state["action"]+"time"] * self.settings.config["timemodifier"] 
-		percent=timediff/timereq
+		if self.settings.timeskip:
+			timereq=0
+		if timereq==0:
+			percent=1
+		else:
+			percent=timediff/timereq
 		if percent>1:
 			percent=1
-		if timediff>timereq or forcestop:
+		if timediff>=timereq or forcestop:
 			if self.state["action"]=="heal" and not forcestop:
 				self.state["sick"]=False
 				for key in ["food","sleep","clean","play","learn"]:
@@ -86,7 +91,7 @@ class petstate(object):
 				if self.state[self.state["action"]]<0:
 					self.state[self.state["action"]]=0
 				self.state[self.state["action"]]=self.state[self.state["action"]]+(self.settings.config[self.state["action"]+"improve"]*percent)
-				self.decrease(percent)
+				self.effect(percent)
 			self.state["action"]=None
 
 	def sick(self,state,time):
@@ -116,7 +121,7 @@ class petstate(object):
 			self.testaction(time,forcestop)
 		if not self.state["dead"]:
 			for key in ["food","sleep","clean","play","learn"]:
-				self.initialize(key,50)
+				self.initialize(key,self.settings.config["defaultvalue"])
 				self.state[key]=self.state[key]-((timediff / self.settings.config["timemodifier"]) * self.settings.config[key+"mod"])
 				if key+"sick" in self.settings.config and not self.state["sick"]:
 					low,high,lowsick,highsick=self.settings.config[key+"sick"].split(",")
@@ -131,9 +136,11 @@ class petstate(object):
 						else:
 							self.state[key]=100
 
-			if self.getmood()=="happy" and self.state["time"]-self.state["growtime"]>self.settings.config["growtime"]*self.settings.config["timemodifier"] and self.state["grow"]<self.settings.config["maxgrow"] or self.settings.grow:
+			if ((self.getmood()=="happy" and self.state["time"]-self.state["growtime"]>self.settings.config["growtime"]*self.settings.config["timemodifier"]) or self.settings.grow) and self.state["grow"]<self.settings.config["maxgrow"]:
+				self.settings.grow=False
 				self.state["grow"]+=1
 				self.message.append(self.text("grown"))
+				self.state["growtime"]=time
 		elif time-self.state["sicktime"]>self.settings.config["sicktime"]*self.settings.config["timemodifier"]:
 			if not self.state["dead"]:
 				self.message.append(settings.text("died"))
@@ -192,11 +199,14 @@ class petstate(object):
 
 
 
-	def decrease(self,percent):
+	def effect(self,percent):
 		for key in ["food","sleep","clean","play","learn"]:
-			decreasekey=self.state["action"]+"-"+key
-			if decreasekey in self.settings.config:
-				self.state[key]=self.state[key] - (self.settings.config[decreasekey]*percent)
+			effectkey=self.state["action"]+"-"+key
+			if effectkey in self.settings.config:
+				self.state[key]=self.state[key] - (self.settings.config[effectkey]*percent)
+			effectkey=self.state["action"]+"+"+key
+			if effectkey in self.settings.config:
+				self.state[key]=self.state[key] + (self.settings.config[effectkey]*percent)
 	
 	def __init__(self,savefile,settings):
 		self.state={}

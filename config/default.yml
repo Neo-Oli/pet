@@ -1,5 +1,5 @@
 lang: en
-debug: false
+debug: False
 timemodifier: 1
 growtime: 86400
 sicktime: 86400
@@ -10,6 +10,7 @@ playtime: 30
 cleantime: 5
 healtime: 15
 maxgrow: 1
+defaultvalue: 75
 
 foodmod: 0.003
 sleepmod: 0.001
@@ -41,4 +42,5 @@ food-dirty: 10
 food-sleep: 2
 learn-sleep: 5
 learn-play: 15
+food+play: 15
 
