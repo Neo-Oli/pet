@@ -5,8 +5,8 @@ def main():
 	from pet import petstate
 
 	parser = argparse.ArgumentParser()
-	parser.description="Play with the pet"
-	parser.add_argument('action', help="Action to do",nargs='?',default="")
+	parser.description="Virtual pet symulator. Initialize with: pet new [name]"
+	parser.add_argument('action', help="Action to do: eat, play, sleep, learn, heal, clean",nargs='?',default="")
 	parser.add_argument('name', help="Name (used together with 'new' action)",nargs='?',default="")
 	parser.add_argument('-s', nargs='?', help="Settings file to use (in ~/.config/pet/)",default="default.state.json")
 	parser.add_argument('-c', nargs='?', help="Settings file to use (in ~/.config/pet/)",default="default.config.yml")
