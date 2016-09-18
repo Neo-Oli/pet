@@ -20,7 +20,8 @@ class settings(object):
 		if os.path.dirname(sys.argv[0]):
 			os.chdir(os.path.dirname(sys.argv[0]))
 		if not os.path.exists(self.configpath+self.configfile):
-			os.makedirs(self.configpath,exist_ok=True)
+			if not os.path.exists(self.configpath):
+				os.makedirs(self.configpath)
 			configdata = resource_stream(Requirement.parse("pet"), "config/default.yml").read().decode("utf-8")
 			with open(self.configpath+self.configfile, "w") as openfile:
 				openfile.write(configdata)

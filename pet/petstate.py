@@ -1,17 +1,15 @@
 # coding=utf-8
-import datetime,json,sys
+import datetime,json,sys,os
 class petstate(object):
 
 
 	def load(self, savefile):
 		state={}
-		try:
+		if os.path.exists(self.settings.configpath+savefile):
 			with open (self.settings.configpath+savefile, "r") as openfile:
 				statedata=openfile.read()
 				if statedata:
 					state=json.loads(statedata)
-		except FileNotFoundError:
-			pass
 		self.state=state
 
 # Save the current state to the savefile
