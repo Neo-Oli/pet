@@ -115,6 +115,8 @@ class petstate(object):
 		self.state["time"]=time
 		timediff=self.state["time"]-lasttime
 		if self.state["action"]:
+			# Don't deteriorate during actions
+			timediff=0
 			self.testaction(time,forcestop)
 		if not self.state["dead"]:
 			for key in ["food","sleep","clean","play","learn"]:
