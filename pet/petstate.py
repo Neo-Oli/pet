@@ -1,12 +1,12 @@
 # coding=utf-8
-import datetime,json,sys,os
+import datetime,json,os
 class petstate(object):
 
 
-	def load(self, savefile):
+	def load(self):
 		state={}
-		if os.path.exists(self.settings.configpath+savefile):
-			with open (self.settings.configpath+savefile, "r") as openfile:
+		if os.path.exists(self.settings.configpath+self.savefile):
+			with open (self.settings.configpath+self.savefile, "r") as openfile:
 				statedata=openfile.read()
 				if statedata:
 					state=json.loads(statedata)
@@ -21,60 +21,57 @@ class petstate(object):
 # Generates a new state, give it a name
 	def birth(self,name):
 		if not name:
-			print(self.text("error-noname"))
-			import sys
-			sys.exit(1)
-		self.state={}
-		self.state["name"]=name
-		self.message.append(self.text("born"))
+			self.error.append(self.text("error-noname"))
+		else:
+			self.state={}
+			self.state["name"]=name
+			self.message.append(self.text("born"))
 
 	def initialize(self,key,value):
 		if not key in self.state:
 			self.state[key]=value
 
-	def do(self,action):
-		time=float(datetime.datetime.now().strftime("%s.%f"))
-		if action=="new":
-			if "dead" in self.state:
-				dead=self.state["dead"]
+	def do(self,action=""):
+		if not self.error:
+			time=float(datetime.datetime.now().strftime("%s.%f"))
+			if action=="new":
+				if "dead" in self.state:
+					dead=self.state["dead"]
+				else:
+					dead=False
+				if "name" not in self.state and not dead:
+					self.birth(self.settings.name)
+					self.do()
+				else:
+					self.error.append(self.text("error-petexists"))
+			elif not self.state:
+					self.error.append(self.text("error-nostate"))
 			else:
-				dead=False
-			if "name" not in self.state and not dead:
-				self.birth(self.settings.name)
-				self.getstatus(time)
-			else:
-				print(self.text("error-petexists"))
-				sys.exit(1)
-		elif not self.state:
-				print(self.text("error-nostate"))
-				sys.exit(1)
-		else:
-			if action in ["food","play","clean","learn","sleep","heal"]:
-				self.getstatus(time)
-				self.wait(action,time)
-				self.getstatus(time)
-			elif action in ["feed","eat","Fd"]:
-				self.do("food")
-			elif action=="fun":
-				self.do("play")
-			elif action in ["teach","lrn"]:
-				self.do("learn")
-			elif action in ["cln","wash"]:
-				self.do("clean")
-			elif action in ["cancel", "stop", "wake","interrupt"]:
-				# Force stop action
-				self.getstatus(time,True)
-			elif action=="status":
-				self.getstatus(time)
-			elif action:
-				print(self.text("error-action"))
-				sys.exit(1)
-			else:
-				self.do("status")
+				if action in ["food","play","clean","learn","sleep","heal"]:
+					self.getstatus(time)
+					self.wait(action,time)
+					self.getstatus(time)
+				elif action in ["feed","eat","Fd"]:
+					self.do("food")
+				elif action=="fun":
+					self.do("play")
+				elif action in ["teach","lrn"]:
+					self.do("learn")
+				elif action in ["cln","wash"]:
+					self.do("clean")
+				elif action in ["cancel", "stop", "wake","interrupt"]:
+					# Force stop action
+					self.getstatus(time,True)
+				elif action=="status":
+					self.getstatus(time)
+				elif action:
+					self.error.append(self.text("error-action"))
+				else:
+					self.do("status")
 
 	def testaction(self,time, forcestop=False):
 		if self.state["action"]=="heal" and forcestop:
-			self.error.append(self.text("error_forcestop"))
+			self.message.append(self.text("error_forcestop"))
 		timediff=time - self.state["actiontime"]
 		timereq=self.settings.config[self.state["action"]+"time"] * self.settings.config["timemodifier"] 
 		percent=timediff/timereq
@@ -139,7 +136,7 @@ class petstate(object):
 				self.message.append(self.text("grown"))
 		elif time-self.state["sicktime"]>self.settings.config["sicktime"]*self.settings.config["timemodifier"]:
 			if not self.state["dead"]:
-				self.error.append(settings.text("died"))
+				self.message.append(settings.text("died"))
 			self.state["dead"]=True
 
 
@@ -156,13 +153,13 @@ class petstate(object):
 
 	def wait(self,action,time):
 		if action=="heal" and not self.state["sick"]:
-			self.error.append(settings.text("notsick"))
+			self.message.append(settings.text("notsick"))
 		elif not self.state["action"]:
 			if not self.state["dead"] and (not self.state["sick"] or action=="heal"):
 				self.state["action"]=action
 				self.state["actiontime"]=time
 		else:
-			self.error.append(self.text("busy"))
+			self.message.append(self.text("busy"))
 
 	def getmood(self):
 		if self.state["dead"]:

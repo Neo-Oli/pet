@@ -1,6 +1,7 @@
 # coding=utf-8
 import yaml
-import os,sys
+import sys
+import os
 from pkg_resources import resource_stream, Requirement
 class settings(object):
 	

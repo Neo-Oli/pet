@@ -3,33 +3,36 @@ from pet import interfacehelper
 import datetime,sys
 class interface():
 	
-	def showstatus(self,pet,settings):
+	def showstatus(self):
 		sep=" "
 		statout=" "
-		if pet.state["dead"]==True:
-			statout+=settings.lang["dead"]+sep
-		elif pet.state["sick"]==True and pet.state["action"]!="heal":
-			statout+=settings.lang["sick"]+sep
+		if self.pet.state["dead"]==True:
+			statout+=self.settings.lang["dead"]+sep
+		elif self.pet.state["sick"]==True and self.pet.state["action"]!="heal":
+			statout+=self.settings.lang["sick"]+sep
 		else:
-			if pet.state["action"]:
-				timeleft=(settings.config[pet.state["action"]+"time"]*settings.config["timemodifier"]) - (pet.state["time"] - pet.state["actiontime"]) 
-				self.interfacemessages.append(settings.lang["remainingtime"]+":"+str(datetime.timedelta(seconds=round(timeleft))))
-			statout+="Fd:"+interfacehelper.displayvalue(pet.state["food"])+sep
-			statout+="zZz:"+interfacehelper.displayvalue(pet.state["sleep"])+sep
-			statout+="cln:"+interfacehelper.displayvalue(pet.state["clean"])+sep
-			statout+="fun:"+interfacehelper.displayvalue(pet.state["play"])+sep
-			statout+="lrn:"+interfacehelper.displayvalue(pet.state["learn"])+sep
+			if self.pet.state["action"]:
+				timeleft=(self.settings.config[self.pet.state["action"]+"time"]*self.settings.config["timemodifier"]) - (self.pet.state["time"] - self.pet.state["actiontime"]) 
+				self.interfacemessages.append(self.settings.lang["remainingtime"]+":"+str(datetime.timedelta(seconds=round(timeleft))))
+			statout+="Fd:"+interfacehelper.displayvalue(self.pet.state["food"])+sep
+			statout+="zZz:"+interfacehelper.displayvalue(self.pet.state["sleep"])+sep
+			statout+="cln:"+interfacehelper.displayvalue(self.pet.state["clean"])+sep
+			statout+="fun:"+interfacehelper.displayvalue(self.pet.state["play"])+sep
+			statout+="lrn:"+interfacehelper.displayvalue(self.pet.state["learn"])+sep
 		return statout
 
-	def showgraphics(self,pet,settings):
+	def showgraphics(self):
 		global graphout
-		mood=pet.getmood()
-		graphic=self.graphics[pet.state["grow"]][mood]
+		mood=self.pet.getmood()
+		graphic=self.graphics[self.pet.state["grow"]][mood]
 		graphic=graphic.ljust(7)
 		return graphic
 
-	def __init__(self,pet,config):
+	def __init__(self,pet,settings):
 		self.interfacemessages=[]
+		self.pet=pet
+		self.settings=settings
+		
 		graphics={}
 		graphics[0]={}
 		graphics[0]['happy']=":)"
@@ -60,12 +63,11 @@ class interface():
 		graphics[1]['playing']=":-D  o ]"
 		graphics[1]['cleaning']=":-) ~~¬"
 		self.graphics=graphics
-		graphout=self.showgraphics(pet,config)	
-		statout=self.showstatus(pet,config)
-		print(graphout + " ("+ pet.state["name"] + ") " +statout + " " +\
-				interfacehelper.parsemessages(self.interfacemessages) + \
-				interfacehelper.parsemessages(pet.message) + \
-				interfacehelper.parsemessages(pet.error))
-		if pet.error:
-			sys.exit(1)
 
+	
+	def output(self):
+		graphout=self.showgraphics()	
+		statout=self.showstatus()
+		return(graphout + " ("+ self.pet.state["name"] + ") " +statout + " " +\
+				interfacehelper.parsemessages(self.interfacemessages) + \
+				interfacehelper.parsemessages(self.pet.message))
