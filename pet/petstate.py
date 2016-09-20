@@ -7,7 +7,7 @@ class petstate(object):
 		state={}
 		if os.path.exists(self.settings.configpath+self.savefile):
 			with open (self.settings.configpath+self.savefile, "r") as openfile:
-				statedata=openfile.read().decode("utf-8")
+				statedata=openfile.read()
 				if statedata:
 					state=json.loads(statedata)
 		self.state=state
