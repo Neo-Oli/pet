@@ -22,7 +22,7 @@ unhappyat: 25
 foodsick: -50,150,True,True
 sleepsick: -50,150,True,False
 cleansick: -50,150,True,False
-playsick: -50,150,True,False
+playsick: -200,150,True,False
 
 foodimprove: 25
 cleanimprove: 75
