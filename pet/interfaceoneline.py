@@ -25,7 +25,7 @@ class interface():
 		global graphout
 		mood=self.pet.getmood()
 		graphic=self.graphics[self.pet.state["grow"]][mood]
-		graphic=graphic.ljust(7)
+		# graphic=graphic.ljust(7)
 		return graphic
 
 	def __init__(self,pet,settings):
