@@ -14,11 +14,12 @@ class interface():
 			if self.pet.state["action"]:
 				timeleft=(self.settings.config[self.pet.state["action"]+"time"]*self.settings.config["timemodifier"]) - (self.pet.state["time"] - self.pet.state["actiontime"]) 
 				self.interfacemessages.append(self.settings.lang["remainingtime"]+":"+str(datetime.timedelta(seconds=round(timeleft))))
-			statout+="Fd:"+interfacehelper.displayvalue(self.pet.state["food"])+sep
-			statout+="zZz:"+interfacehelper.displayvalue(self.pet.state["sleep"])+sep
-			statout+="cln:"+interfacehelper.displayvalue(self.pet.state["clean"])+sep
-			statout+="fun:"+interfacehelper.displayvalue(self.pet.state["play"])+sep
-			statout+="lrn:"+interfacehelper.displayvalue(self.pet.state["learn"])+sep
+			statout="Fd:{} zZz:{} cln:{} fun:{} lrn:{}".format(
+					interfacehelper.displayvalue(self.pet.state["food"]),
+					interfacehelper.displayvalue(self.pet.state["sleep"]),
+					interfacehelper.displayvalue(self.pet.state["clean"]),
+					interfacehelper.displayvalue(self.pet.state["play"]),
+					interfacehelper.displayvalue(self.pet.state["learn"]))
 		return statout
 
 	def showgraphics(self):
