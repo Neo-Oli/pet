@@ -22,5 +22,5 @@ def minmax(number):
 def parsemessages(messages):
 	message=""
 	for entry in messages:
-		message+=entry+" "
+		message="{} {}".format(message,entry)
 	return message

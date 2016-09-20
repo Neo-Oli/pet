@@ -65,9 +65,15 @@ class interface():
 		self.graphics=graphics
 
 	
-	def output(self):
+	def output(self, shortmode):
 		graphout=self.showgraphics()	
 		statout=self.showstatus()
-		return(graphout + " ("+ self.pet.state["name"] + ") " +statout + " " +\
-				interfacehelper.parsemessages(self.interfacemessages) + \
+		if shortmode:
+			return graphout
+		else:
+			return "{} ({}) {} {}".format(
+				graphout,
+				self.pet.state["name"],
+				statout,
+				interfacehelper.parsemessages(self.interfacemessages),
 				interfacehelper.parsemessages(self.pet.message))
