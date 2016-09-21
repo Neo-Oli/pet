@@ -79,9 +79,9 @@ class petstate(object):
 					if not done:
 						self.error.append(self.text("error-action"))
 
-	def testaction(self,time, forcestop=False):
+	def testaction(self,time, lasttime,forcestop=False):
 		if self.state["action"]=="heal" and forcestop:
-			self.message.append(self.text("error_forcestop"))
+			self.message.append(self.text("error-forcestop"))
 		timediff=time - self.state["actiontime"]
 		timereq=self.settings.config[self.state["action"]+"time"] * self.settings.config["timemodifier"] 
 		if self.settings.timeskip:
@@ -102,7 +102,9 @@ class petstate(object):
 					self.state[self.state["action"]]=0
 				self.state[self.state["action"]]=self.state[self.state["action"]]+(self.settings.config[self.state["action"]+"improve"]*percent)
 				self.effect(percent)
+			lasttime=self.state["actiontime"]+timereq
 			self.state["action"]=None
+		return lasttime
 
 	def sick(self,state,time):
 		state["sick"]=True
@@ -127,8 +129,8 @@ class petstate(object):
 		timediff=self.state["time"]-lasttime
 		if self.state["action"]:
 			# Don't deteriorate during actions
-			timediff=0
-			self.testaction(time,forcestop)
+			lasttime=self.testaction(time,lasttime,forcestop)
+			timediff=self.state["time"]-lasttime
 		if not self.state["dead"]:
 			for key in ["food","sleep","clean","play","learn"]:
 				self.initialize(key,self.settings.config["defaultvalue"])
