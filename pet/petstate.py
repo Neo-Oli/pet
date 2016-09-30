@@ -35,7 +35,7 @@ class petstate(object):
 	def getage(self,time):
 		age=time-self.state["timeofbirth"]
 		ageindays=math.floor(round(age)/60/60/24)
-		self.message.append(self.text("age").replace("%t", str(ageindays)))
+		self.message.append(self.text("age").replace("%t", str(int(ageindays))))
 
 	def do(self,action="status"):
 		# fix library calls sending empty strings
