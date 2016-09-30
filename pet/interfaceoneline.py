@@ -72,7 +72,7 @@ class interface():
 		if shortmode:
 			return graphout
 		else:
-			return "{} ({}) {} {}".format(
+			return "{} ({}) {} {} {}".format(
 				graphout,
 				self.pet.state["name"],
 				statout,

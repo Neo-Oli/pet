@@ -72,7 +72,7 @@ class petstate(object):
 					self.do()
 				else:
 
-					for key in ["food","play","sleep","heal","learn","cancel","clean","age"]:
+					for key in ["food","play","sleep","heal","learn","cancel","clean"]:
 						if action in self.settings.lang[key+"alt"]:
 							self.do(key)
 							done=True
