@@ -29,42 +29,12 @@ class interface():
 		# graphic=graphic.ljust(7)
 		return graphic
 
+
+
 	def __init__(self,pet,settings):
 		self.interfacemessages=[]
 		self.pet=pet
 		self.settings=settings
-		
-		graphics={}
-		graphics[0]={}
-		graphics[0]['happy']=":)"
-		graphics[0]['sad']=":("
-		graphics[0]['dirty']=":(.°"
-		graphics[0]['sleepy']="¦o"
-		graphics[0]['sleeping']="¦. zZ"
-		graphics[0]['learning']="[:|]"
-		graphics[0]['hungry']=":O"
-		graphics[0]['sick']=":&"
-		graphics[0]['dead']="x("
-		graphics[0]['healing']=":& +"
-		graphics[0]['eating']=":O*"
-		graphics[0]['playing']=":D  o ]"
-		graphics[0]['cleaning']=":) ~~¬"
-		graphics[1]={}
-		graphics[1]['happy']=":-)"
-		graphics[1]['sad']=":-("
-		graphics[1]['dirty']=":-(.°"
-		graphics[1]['sleepy']="¦-o"
-		graphics[1]['sleeping']="¦-. zZ"
-		graphics[1]['learning']="[:-|]"
-		graphics[1]['hungry']=":-O"
-		graphics[1]['sick']=":-&"
-		graphics[1]['dead']="x-("
-		graphics[1]['healing']=":-& +"
-		graphics[1]['eating']=":-O*"
-		graphics[1]['playing']=":-D  o ]"
-		graphics[1]['cleaning']=":-) ~~¬"
-		self.graphics=graphics
-
 	
 	def output(self, shortmode):
 		graphout=self.showgraphics()	
@@ -78,6 +48,7 @@ class interface():
 				statout,
 				interfacehelper.parsemessages(self.interfacemessages),
 				interfacehelper.parsemessages(self.pet.message))
+
 	def interface(self, action, shortmode):
 		self.pet.do(action)
 		if self.pet.error:

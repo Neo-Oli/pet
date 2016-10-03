@@ -1,5 +1,6 @@
 lang: en
 debug: False
+graphicset: "set-1"
 timemodifier: 1
 growtime: 86400
 sicktime: 86400
