@@ -1,6 +1,9 @@
 # coding=utf-8
 from pet import interfacehelper
 import datetime,sys
+from pkg_resources import resource_stream, Requirement
+import time
+import os
 class interface():
 	
 	def showstatus(self):
@@ -25,9 +28,18 @@ class interface():
 	def showgraphics(self):
 		global graphout
 		mood=self.pet.getmood()
-		graphic=self.graphics[self.pet.state["grow"]][mood]
-		# graphic=graphic.ljust(7)
-		return graphic
+		run=True
+		i=0
+		while run:
+			graphic=self.parsexpm(self.pet.state["grow"],mood,i)
+			if not graphic:
+				run=False
+			else:
+				i+=1
+				output="{}{}".format("\033[6;3H",graphic)
+				print(output)
+				time.sleep(1)
+		return ""
 
 
 
@@ -35,27 +47,72 @@ class interface():
 		self.interfacemessages=[]
 		self.pet=pet
 		self.settings=settings
+		self.graphics={}
 	
 	def output(self, shortmode):
 		graphout=self.showgraphics()	
-		statout=self.showstatus()
-		if shortmode:
-			return graphout
-		else:
-			return "{} ({}) {} {} {}".format(
-				graphout,
-				self.pet.state["name"],
-				statout,
-				interfacehelper.parsemessages(self.interfacemessages),
-				interfacehelper.parsemessages(self.pet.message))
+	
+		
+	def parsexpm(self,size,mood,frame):
+		filename=	"graphics/set-1/{}-{}-{}.xpm".format(mood,size,frame)
+		if filename in self.graphics:
+			return self.graphics[filename]
+		try:
+			xpm  = resource_stream(Requirement.parse("pet"), filename).read().decode("utf-8")
+		except FileNotFoundError:
+			return False
+		lines=xpm.split('\n')
+		pixels=False
+		fileinfo=False
+		noarray=[]
+		yesarray=[]
+		graphics=""
+		for line in lines:
+			charsinline=list(line)
+			try:
+				wordsinline=line.split(' ')
+				if not pixels:
+					if line=="/* pixels */":
+						pixels=True
+					if not charsinline[0]=="/":
+						if not wordsinline[0]=="static":
+							if charsinline[3]=="c":
+								if charsinline[1]==" ":
+									wordnum=3
+								else:
+									wordnum=2
+								if wordsinline[wordnum].lower()[:-2] in ["none","black","000000","000"]:
+									yesarray.append(charsinline[1])
+								else:
+									noarray.append(charsinline[1])
+				else:
+					if line=="};":
+						pixels=False
+					else:
+						line=line.replace("\"","")
+						line=line.replace(",","")
+						for char in yesarray:
+							line=line.replace(char,self.settings.config["graphicschar"])
+						for char in noarray:
+							line=line.replace(char,self.settings.config["graphicsnochar"])
+						graphics="{}{}\n".format(graphics,line)
+			except IndexError:
+				pass
+			
+		self.graphics[filename]=graphics
+		return graphics	
 
 	def interface(self, action, shortmode):
-		self.pet.do(action)
-		if self.pet.error:
-			return(interfacehelper.parsemessages(self.pet.error),True)
-		if self.pet.error:
-			error=True
-		else:
-			error=False
-		return self.output(shortmode),error
+		os.system("tput civis")
+		os.system("clear")
+		while True:
+			self.pet.do(action)
+			if self.pet.error:
+				return(interfacehelper.parsemessages(self.pet.error),True)
+			if self.pet.error:
+				error=True
+			else:
+				error=False
+			self.output(shortmode),error
+		return "",False
 			

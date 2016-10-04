@@ -2,6 +2,8 @@ lang: en
 debug: False
 graphicset: "set-1"
 timemodifier: 1
+graphicschar: "██"
+graphicsnochar: "  "
 growtime: 86400
 sicktime: 86400
 learntime: 3600

@@ -3,7 +3,7 @@ def cli():
 	from pet import settings 
 	import argparse,sys
 	from pet import petstate
-
+	
 	parser = argparse.ArgumentParser()
 	parser.description="Virtual pet symulator. Initialize with: pet new [name]"
 	parser.add_argument('action', help="Action to do: eat, play, sleep, learn, heal, clean",nargs='?',default="")
@@ -47,3 +47,9 @@ def main(action="",name="",configfile="default.config.yml",statefile="default.st
 		output,error=interface.interface(action,shortmode)
 	pet.save(statefile)
 	return output,error
+def signal_handler(signal, frame):
+	import os
+	os.system("tput cnorm")
+	sys.exit(0)
+import sys,signal
+signal.signal(signal.SIGINT, signal_handler)
